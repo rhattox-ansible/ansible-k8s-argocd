@@ -1,21 +1,21 @@
-- name: Download ArgoCD CLI binary
+- name: Download ArgoCD CLI binary from official GitHub releases
   ansible.builtin.get_url:
     url: "{{ argocd_url }}/{{ argocd_version }}/argocd-linux-amd64"
     dest: "/tmp/argocd"
     mode: "0755"
 
-- name: Move binary to install path
+- name: Install ArgoCD CLI to target path
   ansible.builtin.copy:
     src: /tmp/argocd
     dest: "{{ install_path }}/argocd"
     remote_src: true
     mode: "0755"
 
-- name: Verify ArgoCD installation
+- name: Check ArgoCD CLI installation
   ansible.builtin.command: "{{ install_path }}/argocd version --client"
   register: argocd_version_output
   changed_when: false
 
-- name: Show ArgoCD CLI version
+- name: Display installed ArgoCD CLI version
   ansible.builtin.debug:
     var: argocd_version_output.stdout

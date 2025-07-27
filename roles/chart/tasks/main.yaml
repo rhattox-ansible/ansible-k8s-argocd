@@ -1,15 +1,15 @@
-- name: Add Argocd Helm repository
+- name: Add ArgoCD Helm chart repository
   kubernetes.core.helm_repository:
     name: argo
     repo_url: https://argoproj.github.io/argo-helm
 
-- name: Create Argocd namespace
+- name: Create ArgoCD namespace in Kubernetes
   kubernetes.core.k8s:
     api_version: v1
     kind: Namespace
     name: argocd
 
-- name: Deploy ArgoCD Helm chart
+- name: Install or upgrade ArgoCD using Helm chart
   kubernetes.core.helm:
     name: argocd
     chart_ref: argo/argo-cd
